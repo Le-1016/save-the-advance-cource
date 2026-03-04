@@ -570,6 +570,86 @@
     border-top: 1px solid var(--border-dim);
   }
 
+  /* ── EVIDENCE BOX ── */
+  .evidence-box {
+    background: #0a0000;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--red);
+    padding: 28px 32px 24px;
+    margin: 32px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .evidence-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(229,34,34,0.04), transparent);
+    animation: sweep 5s ease-in-out infinite;
+  }
+  .evidence-box-label {
+    position: absolute;
+    top: 14px; right: 18px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    animation: blink 1.4s step-end infinite;
+  }
+  .evidence-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--red);
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+  .evidence-body {
+    font-size: 14px;
+    color: var(--muted2);
+    line-height: 1.9;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+  .evidence-body strong { color: var(--white); }
+  .evidence-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--red);
+    border: 1px solid var(--red);
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: all 0.2s;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .evidence-btn::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(229,34,34,0.12), transparent);
+    transition: none;
+  }
+  .evidence-btn:hover::after { left: 200%; transition: left 0.4s ease; }
+  .evidence-btn:hover {
+    background: rgba(229,34,34,0.1);
+    box-shadow: 0 0 16px var(--red-glow);
+    transform: translateY(-1px);
+  }
+  .evidence-btn-icon { font-size: 9px; animation: blink 1.2s step-end infinite; }
+  .evidence-btn-arrow { margin-left: 4px; transition: transform 0.2s; }
+  .evidence-btn:hover .evidence-btn-arrow { transform: translateX(4px); }
+
   /* Reveal on scroll */
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -655,7 +735,7 @@
 
 <section>
   <div class="section-label reveal">The question</div>
-  <h2 class="reveal">「大学編入で代替できる」<br>——<em>本当に</em>そうでしょうか？</h2>
+  <h2 class="reveal">「大学編入で代替できる」<br>——<em>本当に</em>そうだろうか。</h2>
   <p class="reveal">改革方針では「専門性を高めたい学生は大学編入で対応する」とされています。しかし、専攻科と大学編入は本当に同じ教育機能を持つのでしょうか。</p>
   <div class="compare reveal">
     <div class="compare-card has">
@@ -682,6 +762,20 @@
   <div class="pullquote reveal">
     <p>代替設計の具体性が、公式資料のどこにも明示されていません。</p>
   </div>
+
+  <div class="evidence-box reveal">
+    <div class="evidence-box-label">⚠ EVIDENCE</div>
+    <div class="evidence-title">大阪公立大学工学部 編入学募集要項を確認した。</div>
+    <p class="evidence-body">
+      改革方針では「高専生は大阪公立大学へ編入できる」とされているが、<strong>工学部編入学の募集要項には、高専内部生への優遇・保証に関する記載が確認できない。</strong>外部高専生・大学生と同一の競争枠で選抜される可能性があり、「編入で代替できる」という説明の根拠は薄い。
+    </p>
+    <a class="evidence-btn" href="https://www.omu.ac.jp/admissions/ug/exam_info/transfer/" target="_blank" rel="noopener">
+      <span class="evidence-btn-icon">▶</span>
+      大阪公立大学工学部 編入学募集要項を確認する
+      <span class="evidence-btn-arrow">→</span>
+    </a>
+  </div>
+
   <p class="reveal">編入枠の規模、少人数教育の継承、研究テーマの継続性——これらについて、法人からの具体的な説明は確認できていません。「なくすこと」だけが示され、「何をどう保障するか」が示されていない。</p>
 </section>
 
@@ -706,7 +800,7 @@
     <span class="warn-icon">⚠</span>
     <span>この事例が「前例」となることで、全国の高専教育のあり方に影響を及ぼす可能性があります。</span>
   </div>
-  <p class="reveal">大阪公立大学高専は、同一法人という特殊な立場にあります。しかし今後、類似した統廃合の動きが他校でも起きないという保証はありません。</p>
+  <p class="reveal">大阪公立大学高専は、公立大学法人大阪という特殊な立場にあります。しかし今後、類似した統廃合の動きが他校でも起きないという保証はありません。</p>
 </section>
 
 </div>
@@ -751,27 +845,18 @@
            target="_blank" rel="noopener">
           ▶ &nbsp;意見フォームで回答する
         </a>
-        <a class="cta-btn cta-btn-secondary" href="mailto:rq25012b@st.omu.ac.jp">
+        <a class="cta-btn cta-btn-secondary" href="/cdn-cgi/l/email-protection#3143400304010003537142451f5e5c441f50521f5b41">
           ✉ &nbsp;メールで送る
         </a>
       </div>
-      <p class="cta-note">// いただいたご意見は、今後の活動の基礎資料として活用させていただきます。</p>
+      <p class="cta-note">// いただいたご意見は、今後の活動の資料として活用させていただきます。</p>
     </div>
   </div>
 </div>
 
 <footer>
-  大阪公立大学工業高等専門学校 / rq25012b@st.omu.ac.jp / 本資料の転載・共有は歓迎します。
+  お問い合わせ / <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f28083c0c7c2c3c090b28186dc9d9f87dc9391dc9882">[email&#160;protected]</a> / 本資料の転載・共有は歓迎します。
 </footer>
 
-<script>
-  const reveals = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => obs.observe(el));
-</script>
-</body>
-
-</html>
-
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const reveals = document.querySelectorAll('.revea
