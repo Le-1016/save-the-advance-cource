@@ -3,788 +3,635 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>高専専攻科の危機 ― 大阪公立大学高専からの問いかけ</title>
+<title>高専専攻科廃止問題 ― 大阪公立大学高専からの緊急問いかけ</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #050505;
-    --surface: #0a0a0a;
-    --surface2: #111;
-    --surface3: #161616;
-    --red: #e52222;
-    --red2: #ff3333;
-    --red-glow: rgba(229,34,34,0.18);
-    --white: #f0f0f0;
-    --muted: #555;
-    --muted2: #888;
-    --border: rgba(229,34,34,0.22);
-    --border-dim: rgba(255,255,255,0.06);
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Noto Sans JP', sans-serif;
-    background: var(--bg);
-    color: var(--white);
-    line-height: 1.8;
-    overflow-x: hidden;
-  }
+:root {
+  --bg: #050505;
+  --s1: #0a0a0a;
+  --s2: #111;
+  --s3: #181818;
+  --red: #e52222;
+  --red2: #ff3333;
+  --rdim: rgba(229,34,34,0.15);
+  --wh: #f0f0f0;
+  --mu: #555;
+  --mu2: #888;
+  --bdr: rgba(229,34,34,0.22);
+  --bdrdim: rgba(255,255,255,0.06);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Noto Sans JP',sans-serif;
+  background:var(--bg);
+  color:var(--wh);
+  line-height:1.8;
+  overflow-x:hidden;
+}
 
-  /* Scanlines */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.12) 3px, rgba(0,0,0,0.12) 4px);
-    pointer-events: none;
-    z-index: 9998;
-  }
+/* ── SCANLINES ── */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.12) 2px,rgba(0,0,0,0.12) 4px);
+  pointer-events:none;
+  z-index:9999;
+}
 
-  /* ── TICKER TAPE (top) ── */
-  .ticker-wrap {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 9997;
-    background: var(--red);
-    overflow: hidden;
-    height: 32px;
-    display: flex;
-    align-items: center;
-  }
-  .ticker-content {
-    display: flex;
-    white-space: nowrap;
-    animation: ticker 18s linear infinite;
-  }
-  .ticker-item {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    color: #fff;
-    padding: 0 40px;
-  }
-  .ticker-item::before { content: '⚠ '; }
-  @keyframes ticker {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
+/* ── TICKER ── */
+.ticker{
+  position:fixed;top:0;left:0;right:0;
+  height:36px;
+  background:#000;
+  border-bottom:1px solid var(--red);
+  z-index:1000;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+}
+.ticker-label{
+  background:var(--red);
+  color:#fff;
+  font-family:'Share Tech Mono',monospace;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.15em;
+  padding:0 16px;
+  height:100%;
+  display:flex;align-items:center;
+  white-space:nowrap;
+  flex-shrink:0;
+  z-index:1;
+}
+.ticker-track{
+  display:flex;
+  animation:tickerScroll 28s linear infinite;
+  white-space:nowrap;
+}
+.ticker-item{
+  font-family:'Share Tech Mono',monospace;
+  font-size:11px;
+  color:var(--mu2);
+  padding:0 40px;
+  letter-spacing:0.08em;
+}
+.ticker-item span{color:var(--red);margin:0 8px;}
+@keyframes tickerScroll{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-50%);}
+}
 
-  /* ── TICKER TAPE (bottom of hero) ── */
-  .ticker-wrap-dark {
-    background: #000;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    overflow: hidden;
-    height: 36px;
-    display: flex;
-    align-items: center;
-  }
-  .ticker-content-dark {
-    display: flex;
-    white-space: nowrap;
-    animation: tickerReverse 22s linear infinite;
-  }
-  .ticker-item-dark {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    color: var(--muted2);
-    padding: 0 32px;
-  }
-  .ticker-item-dark span { color: var(--red); }
-  @keyframes tickerReverse {
-    0%   { transform: translateX(-50%); }
-    100% { transform: translateX(0); }
-  }
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  text-align:center;
+  padding:120px 24px 80px;
+  position:relative;overflow:hidden;
+  background:var(--bg);
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(229,34,34,0.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(229,34,34,0.06) 1px,transparent 1px);
+  background-size:60px 60px;
+  animation:gridPulse 6s ease-in-out infinite;
+}
+@keyframes gridPulse{0%,100%{opacity:.3;}50%{opacity:1;}}
+.hero-glow{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-60%);
+  width:700px;height:700px;
+  background:radial-gradient(ellipse,rgba(229,34,34,0.1) 0%,transparent 70%);
+  pointer-events:none;
+  animation:glowPulse 4s ease-in-out infinite;
+}
+@keyframes glowPulse{0%,100%{opacity:.6;}50%{opacity:1;}}
 
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 100px 24px 60px;
-    position: relative;
-    overflow: hidden;
-    background: var(--bg);
-    margin-top: 32px;
-  }
+.hero-inner{position:relative;z-index:1;max-width:840px;}
 
-  /* Animated grid */
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(229,34,34,0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(229,34,34,0.06) 1px, transparent 1px);
-    background-size: 60px 60px;
-    animation: gridPulse 6s ease-in-out infinite;
-  }
-  @keyframes gridPulse {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
-  }
+.hero-tag{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:11px;letter-spacing:.3em;
+  color:var(--red);
+  border:1px solid var(--red);
+  padding:6px 18px;margin-bottom:44px;
+  text-transform:uppercase;
+  animation:tagFlicker 4s ease-in-out infinite;
+}
+.hero-tag::before{content:'▶';font-size:8px;animation:blink 0.8s step-end infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+@keyframes tagFlicker{
+  0%,89%,91%,93%,100%{box-shadow:0 0 10px var(--rdim);opacity:1;}
+  90%,92%{opacity:.4;box-shadow:none;}
+}
 
-  /* Red radial glow */
-  .hero-glow {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -55%);
-    width: 700px; height: 700px;
-    background: radial-gradient(ellipse, rgba(229,34,34,0.1) 0%, transparent 65%);
-    pointer-events: none;
-    animation: glowPulse 4s ease-in-out infinite;
-  }
-  @keyframes glowPulse {
-    0%, 100% { opacity: 0.6; transform: translate(-50%,-55%) scale(1); }
-    50%       { opacity: 1;   transform: translate(-50%,-55%) scale(1.08); }
-  }
+.hero h1{
+  font-family:'Noto Serif JP',serif;
+  font-size:clamp(30px,6.5vw,68px);
+  font-weight:900;
+  line-height:1.2;
+  margin-bottom:36px;
+}
+.hero h1 .ln{color:var(--wh);}
+.hero h1 .la{
+  color:var(--red);display:block;
+  animation:redFlicker 3s ease-in-out infinite alternate;
+}
+@keyframes redFlicker{
+  0%,85%{text-shadow:0 0 24px rgba(229,34,34,.5),0 0 60px rgba(229,34,34,.2);}
+  86%,88%{text-shadow:none;color:#8b0000;}
+  87%,89%,100%{text-shadow:0 0 40px rgba(229,34,34,.8),0 0 100px rgba(229,34,34,.3);color:var(--red);}
+}
 
-  /* Glitch lines */
-  .hero::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 120px,
-      rgba(229,34,34,0.015) 120px,
-      rgba(229,34,34,0.015) 121px
-    );
-    pointer-events: none;
-  }
+.hero-sub{
+  font-size:15px;color:var(--mu2);
+  max-width:580px;margin:0 auto 16px;
+  font-weight:300;line-height:2.1;
+}
+.hero-sub strong{color:var(--wh);font-weight:500;}
 
-  .hero-inner { position: relative; z-index: 1; max-width: 840px; }
+.hero-byline{
+  font-family:'Share Tech Mono',monospace;
+  font-size:11px;color:var(--mu);letter-spacing:.1em;
+  margin-bottom:44px;
+}
+.hero-scroll{
+  font-family:'Share Tech Mono',monospace;
+  font-size:11px;color:var(--mu);letter-spacing:.2em;
+  animation:scrollBob 2s ease-in-out infinite;
+}
+@keyframes scrollBob{0%,100%{opacity:.4;transform:translateY(0);}50%{opacity:1;transform:translateY(5px);}}
 
-  /* Blinking status tag */
-  .hero-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.28em;
-    color: var(--red);
-    border: 1px solid var(--red);
-    padding: 7px 18px;
-    margin-bottom: 44px;
-    text-transform: uppercase;
-    box-shadow: 0 0 12px var(--red-glow), inset 0 0 12px rgba(229,34,34,0.05);
-    animation: tagFlicker 4s ease-in-out infinite;
-  }
-  .hero-tag .dot {
-    width: 7px; height: 7px;
-    background: var(--red);
-    border-radius: 50%;
-    box-shadow: 0 0 6px var(--red);
-    animation: blink 0.9s step-end infinite;
-  }
-  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-  @keyframes tagFlicker {
-    0%, 88%, 92%, 100% { opacity: 1; box-shadow: 0 0 12px var(--red-glow); }
-    90% { opacity: 0.6; box-shadow: 0 0 4px var(--red-glow); }
-  }
+/* ── LAYOUT ── */
+.container{max-width:780px;margin:0 auto;padding:0 24px;}
+section{padding:80px 0;border-bottom:1px solid var(--bdrdim);}
+section:last-of-type{border-bottom:none;}
 
-  .hero h1 {
-    font-family: 'Noto Serif JP', serif;
-    font-size: clamp(34px, 6.5vw, 68px);
-    font-weight: 900;
-    line-height: 1.2;
-    margin-bottom: 36px;
-  }
-  .hero h1 .line-normal { color: var(--white); }
-  .hero h1 .line-alert {
-    color: var(--red);
-    display: block;
-    text-shadow: 0 0 30px rgba(229,34,34,0.6);
-    animation: alertFlicker 3s ease-in-out infinite;
-  }
-  @keyframes alertFlicker {
-    0%, 94%, 98%, 100% { text-shadow: 0 0 30px rgba(229,34,34,0.6), 0 0 60px rgba(229,34,34,0.2); opacity: 1; }
-    96% { text-shadow: 0 0 8px rgba(229,34,34,0.3); opacity: 0.7; }
-  }
+.sec-label{
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px;letter-spacing:.3em;
+  color:var(--red);text-transform:uppercase;
+  margin-bottom:20px;
+  display:flex;align-items:center;gap:8px;
+}
+.sec-label::before{content:'//';opacity:.5;}
 
-  .hero-sub {
-    font-size: 15px;
-    color: var(--muted2);
-    max-width: 560px;
-    margin: 0 auto 52px;
-    font-weight: 300;
-    line-height: 2.1;
-  }
-  .hero-sub strong { color: var(--white); font-weight: 500; }
-  .hero-byline {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    margin-bottom: 44px;
-    animation: fadeInOut 5s ease-in-out infinite;
-  }
-  @keyframes fadeInOut { 0%,100%{opacity:0.5;} 50%{opacity:1;} }
+h2{
+  font-family:'Noto Serif JP',serif;
+  font-size:clamp(22px,3.5vw,34px);
+  font-weight:700;line-height:1.4;
+  margin-bottom:28px;color:var(--wh);
+}
+h2 em{color:var(--red);font-style:normal;}
+p{font-size:15px;color:var(--mu2);margin-bottom:18px;line-height:1.95;}
 
-  .hero-scroll {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.2em;
-    animation: scrollBounce 2s ease-in-out infinite;
-  }
-  @keyframes scrollBounce {
-    0%,100%{opacity:0.3; transform:translateY(0);}
-    50%{opacity:1; transform:translateY(5px);}
-  }
+/* ── ALERT BANNER (flashing) ── */
+.alert-banner{
+  background:var(--red);color:#fff;
+  padding:14px 20px;
+  margin:40px 0;
+  display:flex;align-items:center;gap:14px;
+  font-size:13px;font-weight:700;
+  animation:bannerFlash 2.5s ease-in-out infinite;
+  position:relative;overflow:hidden;
+}
+.alert-banner::before{
+  content:'';
+  position:absolute;left:-100%;top:0;bottom:0;width:60%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
+  animation:bannerSweep 2.5s ease-in-out infinite;
+}
+@keyframes bannerFlash{0%,100%{box-shadow:0 0 8px rgba(229,34,34,.4);}50%{box-shadow:0 0 24px rgba(229,34,34,.8),0 0 50px rgba(229,34,34,.3);}}
+@keyframes bannerSweep{0%{left:-100%;}100%{left:200%;}}
+.alert-icon{font-size:18px;flex-shrink:0;animation:blink .6s step-end infinite;}
 
-  /* ── ALERT BANNER (between sections) ── */
-  .alert-banner {
-    background: #0a0000;
-    border-top: 1px solid var(--red);
-    border-bottom: 1px solid var(--red);
-    overflow: hidden;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
-  .alert-banner::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, transparent 0%, rgba(229,34,34,0.04) 50%, transparent 100%);
-    animation: bannerSweep 3s ease-in-out infinite;
-  }
-  @keyframes bannerSweep {
-    0%   { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-  }
-  .alert-scroll {
-    display: flex;
-    white-space: nowrap;
-    animation: ticker 20s linear infinite;
-  }
-  .alert-item {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.15em;
-    color: var(--red);
-    padding: 0 48px;
-  }
-  .alert-item::before { content: '// '; opacity: 0.5; }
+/* ── FACT BOX ── */
+.fact-box{
+  background:var(--s2);
+  border:1px solid var(--bdr);border-left:3px solid var(--red);
+  padding:36px 40px;margin:40px 0;
+  position:relative;overflow:hidden;
+}
+.fact-box::after{
+  content:'!ALERT!';
+  position:absolute;top:14px;right:18px;
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  letter-spacing:.2em;color:var(--red);opacity:.6;
+  animation:blink 1.4s step-end infinite;
+}
+.fact-num{
+  font-family:'Share Tech Mono',monospace;
+  font-size:72px;color:var(--red);
+  line-height:1;margin-bottom:6px;
+  text-shadow:0 0 24px rgba(229,34,34,.4);
+  animation:numPulse 3s ease-in-out infinite alternate;
+}
+@keyframes numPulse{from{text-shadow:0 0 16px rgba(229,34,34,.3);}to{text-shadow:0 0 40px rgba(229,34,34,.7),0 0 80px rgba(229,34,34,.3);}}
+.fact-sub{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--mu);letter-spacing:.1em;margin-bottom:20px;}
+.fact-desc{
+  font-size:15px;color:var(--mu2);margin:0;
+  border-top:1px solid var(--bdrdim);padding-top:18px;
+}
+.fact-desc strong{color:var(--wh);}
 
-  /* ── LAYOUT ── */
-  .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
-  section { padding: 80px 0; border-bottom: 1px solid var(--border-dim); }
-  section:last-of-type { border-bottom: none; }
+/* ── COMPARE ── */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin:40px 0;background:var(--bdrdim);}
+@media(max-width:560px){.compare{grid-template-columns:1fr;}}
+.ccard{padding:26px;background:var(--s2);}
+.ccard.none{background:#0e0000;}
+.c-lbl{
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  font-weight:700;letter-spacing:.2em;margin-bottom:14px;
+  text-transform:uppercase;display:flex;align-items:center;gap:6px;
+}
+.ccard.has .c-lbl{color:#3ba;}
+.ccard.has .c-lbl::before{content:'◆';font-size:8px;color:#3ba;}
+.ccard.none .c-lbl{color:var(--red);}
+.ccard.none .c-lbl::before{content:'✕';font-size:10px;color:var(--red);}
+.ccard ul{list-style:none;padding:0;}
+.ccard ul li{
+  font-size:13px;color:var(--mu2);
+  padding:8px 0;border-bottom:1px solid var(--bdrdim);
+  line-height:1.6;display:flex;gap:8px;
+}
+.ccard ul li::before{content:'—';color:var(--mu);flex-shrink:0;}
+.ccard ul li:last-child{border-bottom:none;}
 
-  .section-label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    color: var(--red);
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .section-label::before { content: '//'; opacity: 0.4; }
+/* ── PULLQUOTE ── */
+.pq{
+  border-left:3px solid var(--red);
+  padding:20px 28px;margin:40px 0;
+  background:var(--s2);
+}
+.pq p{
+  font-family:'Noto Serif JP',serif;
+  font-size:17px;color:var(--wh);
+  font-weight:600;line-height:1.7;margin:0;
+}
 
-  h2 {
-    font-family: 'Noto Serif JP', serif;
-    font-size: clamp(22px, 3.5vw, 34px);
-    font-weight: 700;
-    line-height: 1.4;
-    margin-bottom: 28px;
-    color: var(--white);
-  }
-  h2 em { color: var(--red); font-style: normal; }
-  p { font-size: 15px; color: var(--muted2); margin-bottom: 18px; line-height: 1.9; }
+/* ── Q CARDS ── */
+.q-grid{display:grid;gap:2px;margin:40px 0;background:var(--bdrdim);}
+.qcard{background:var(--s2);padding:28px 32px;transition:background .2s;}
+.qcard:hover{background:var(--s3);}
+.qnum{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--red);letter-spacing:.2em;margin-bottom:10px;}
+.qcard p{font-size:15px;color:var(--wh);font-weight:400;margin:0;line-height:1.7;}
 
-  /* ── FACT BOX ── */
-  .fact-box {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--red);
-    padding: 36px 40px;
-    margin: 40px 0;
-    position: relative;
-    overflow: hidden;
-    animation: borderPulse 3s ease-in-out infinite;
-  }
-  @keyframes borderPulse {
-    0%,100%{ box-shadow: 0 0 0 rgba(229,34,34,0); }
-    50%    { box-shadow: 0 0 20px rgba(229,34,34,0.12); }
-  }
-  .fact-box-label {
-    position: absolute;
-    top: 14px; right: 18px;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--red);
-    animation: blink 1.4s step-end infinite;
-  }
-  .fact-num {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 72px;
-    color: var(--red);
-    line-height: 1;
-    margin-bottom: 4px;
-    text-shadow: 0 0 24px rgba(229,34,34,0.35);
-  }
-  .fact-label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    margin-bottom: 20px;
-  }
-  .fact-desc {
-    font-size: 15px;
-    color: var(--muted2);
-    margin: 0;
-    border-top: 1px solid var(--border-dim);
-    padding-top: 20px;
-  }
-  .fact-desc strong { color: var(--white); }
+/* ── SOURCE BUTTONS ── */
+.source-block{
+  background:var(--s2);border:1px solid var(--bdr);
+  padding:28px 32px;margin:32px 0;
+  position:relative;
+}
+.source-block::before{
+  content:'SOURCE';
+  position:absolute;top:12px;right:16px;
+  font-family:'Share Tech Mono',monospace;font-size:9px;
+  letter-spacing:.2em;color:var(--red);opacity:.5;
+}
+.source-block .src-title{
+  font-family:'Share Tech Mono',monospace;
+  font-size:11px;letter-spacing:.15em;color:var(--red);
+  margin-bottom:10px;text-transform:uppercase;
+}
+.source-block p{font-size:14px;color:var(--mu2);margin-bottom:16px;line-height:1.8;}
+.src-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 20px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:11px;font-weight:700;letter-spacing:.1em;
+  text-decoration:none;
+  background:transparent;
+  color:var(--red);
+  border:1px solid var(--red);
+  transition:all .2s;
+  text-transform:uppercase;
+}
+.src-btn:hover{background:var(--red);color:#fff;box-shadow:0 0 16px rgba(229,34,34,.4);}
+.src-btn::before{content:'▶';font-size:9px;}
 
-  /* ── COMPARE ── */
-  .compare {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    margin: 40px 0;
-    background: var(--border-dim);
-  }
-  @media (max-width: 560px) { .compare { grid-template-columns: 1fr; } }
-  .compare-card { padding: 28px; background: var(--surface2); }
-  .compare-card.none { background: #0d0000; }
-  .compare-card .c-label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    margin-bottom: 16px;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .compare-card.has .c-label { color: #3a9; }
-  .compare-card.has .c-label::before { content: '◆'; font-size: 8px; color: #3a9; }
-  .compare-card.none .c-label { color: var(--red); animation: blink 1.5s step-end infinite; }
-  .compare-card.none .c-label::before { content: '✕'; font-size: 10px; color: var(--red); }
-  .compare-card ul { list-style: none; }
-  .compare-card ul li {
-    font-size: 13px;
-    color: var(--muted2);
-    padding: 8px 0;
-    border-bottom: 1px solid var(--border-dim);
-    line-height: 1.6;
-    display: flex;
-    gap: 8px;
-  }
-  .compare-card ul li::before { content: '—'; color: var(--muted); flex-shrink: 0; }
-  .compare-card ul li:last-child { border-bottom: none; }
+/* ── STRUCTURE BOX (危機の構造) ── */
+.struct-box{
+  background:var(--s2);border:1px solid var(--bdr);
+  padding:32px 36px;margin:40px 0;
+}
+.struct-box .s-title{
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  letter-spacing:.25em;color:var(--red);
+  margin-bottom:20px;text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;
+  animation:blink 2s step-end infinite;
+}
+.struct-box .s-title::before{content:'⬛';font-size:8px;}
+.flow{display:flex;flex-direction:column;gap:0;}
+.flow-item{
+  display:flex;align-items:flex-start;gap:16px;
+  padding:16px 0;border-bottom:1px solid var(--bdrdim);
+}
+.flow-item:last-child{border-bottom:none;}
+.flow-num{
+  font-family:'Share Tech Mono',monospace;
+  font-size:11px;color:var(--red);
+  width:28px;flex-shrink:0;margin-top:3px;
+}
+.flow-text{font-size:14px;color:var(--mu2);line-height:1.7;}
+.flow-text strong{color:var(--wh);}
+.flow-arrow{
+  text-align:center;
+  font-family:'Share Tech Mono',monospace;
+  font-size:18px;color:var(--red);
+  padding:4px 0;
+  animation:blink 1.2s step-end infinite;
+}
 
-  /* ── PULLQUOTE ── */
-  .pullquote {
-    border-left: 3px solid var(--red);
-    padding: 20px 28px;
-    margin: 40px 0;
-    background: var(--surface2);
-    position: relative;
-    overflow: hidden;
-  }
-  .pullquote::after {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(229,34,34,0.06), transparent);
-    animation: sweep 4s ease-in-out infinite;
-  }
-  @keyframes sweep { 0%{left:-100%} 100%{left:200%} }
-  .pullquote p {
-    font-family: 'Noto Serif JP', serif;
-    font-size: 17px;
-    color: var(--white);
-    font-weight: 600;
-    line-height: 1.7;
-    margin: 0;
-    position: relative;
-    z-index: 1;
-  }
+/* ── CTA ── */
+.cta-sec{
+  background:var(--s1);
+  border-top:1px solid var(--bdr);
+  padding:80px 24px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.cta-sec::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(229,34,34,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(229,34,34,.04) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+/* sweep animation on CTA */
+.cta-sec::after{
+  content:'';
+  position:absolute;
+  top:0;left:-200%;
+  width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(229,34,34,.03),transparent);
+  animation:ctaSweep 5s linear infinite;
+}
+@keyframes ctaSweep{0%{left:-200%;}100%{left:200%;}}
 
-  /* ── QUESTION CARDS ── */
-  .question-grid { display: grid; gap: 2px; margin: 40px 0; background: var(--border-dim); }
-  .q-card {
-    background: var(--surface2);
-    padding: 28px 32px;
-    transition: background 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .q-card:hover { background: var(--surface3); }
-  .q-card::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 2px;
-    background: var(--red);
-    animation: barBlink 2s step-end infinite;
-  }
-  .q-card:nth-child(2)::before { animation-delay: 0.6s; }
-  .q-card:nth-child(3)::before { animation-delay: 1.2s; }
-  @keyframes barBlink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
-  .q-num { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 0.2em; margin-bottom: 12px; }
-  .q-card p { font-size: 15px; color: var(--white); margin: 0; line-height: 1.7; }
+.cta-inner{position:relative;z-index:1;}
+.cta-sec h2{font-size:clamp(24px,4vw,40px);margin-bottom:16px;}
+.cta-desc{color:var(--mu2);max-width:520px;margin:0 auto 48px;}
+.cta-steps{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-bottom:56px;}
+.cta-step{text-align:center;max-width:150px;}
+.step-num{
+  width:44px;height:44px;
+  border:1px solid var(--red);color:var(--red);
+  font-family:'Share Tech Mono',monospace;font-size:18px;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 12px;
+  box-shadow:0 0 12px var(--rdim);
+  animation:numPulse 3s ease-in-out infinite alternate;
+}
+.step-text{font-size:12px;color:var(--mu);line-height:1.6;}
 
-  /* ── WARNING BAR ── */
-  .warning-bar {
-    position: relative;
-    overflow: hidden;
-    background: var(--red);
-    color: #fff;
-    padding: 18px 24px;
-    margin: 40px 0;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    font-size: 14px;
-    font-weight: 700;
-    animation: warnPulse 2s ease-in-out infinite;
-  }
-  @keyframes warnPulse {
-    0%,100%{ box-shadow: 0 0 0 rgba(229,34,34,0); }
-    50%    { box-shadow: 0 0 30px rgba(229,34,34,0.5); }
-  }
-  .warning-bar::after {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 40%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-    animation: warnSweep 2.5s ease-in-out infinite;
-  }
-  @keyframes warnSweep { 0%{left:-100%} 100%{left:200%} }
-  .warn-icon { font-size: 20px; flex-shrink: 0; animation: blink 0.8s step-end infinite; }
+.btn-group{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+.cta-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 36px;
+  font-size:14px;font-weight:700;letter-spacing:.08em;
+  text-decoration:none;transition:all .2s;
+  font-family:'Noto Sans JP',sans-serif;
+}
+.btn-pri{
+  background:var(--red);color:#fff;
+  box-shadow:0 0 20px var(--rdim);
+  animation:btnPulse 2s ease-in-out infinite;
+}
+@keyframes btnPulse{0%,100%{box-shadow:0 0 16px rgba(229,34,34,.3);}50%{box-shadow:0 0 32px rgba(229,34,34,.6),0 0 60px rgba(229,34,34,.2);}}
+.btn-pri:hover{background:var(--red2);transform:translateY(-2px);}
+.btn-sec{
+  background:transparent;color:var(--wh);
+  border:1px solid rgba(255,255,255,.25);
+}
+.btn-sec:hover{border-color:var(--red);color:var(--red);transform:translateY(-2px);}
 
-  /* ── CTA ── */
-  .cta-section {
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-    padding: 80px 24px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .cta-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(229,34,34,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(229,34,34,0.03) 1px, transparent 1px);
-    background-size: 44px 44px;
-    animation: gridPulse 8s ease-in-out infinite;
-  }
-  .cta-inner { position: relative; z-index: 1; }
-  .cta-section h2 { font-size: clamp(24px, 4vw, 40px); margin-bottom: 16px; }
-  .cta-desc { color: var(--muted2); max-width: 500px; margin: 0 auto 48px; }
-  .cta-steps { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 56px; }
-  .cta-step { text-align: center; max-width: 150px; }
-  .step-num {
-    width: 44px; height: 44px;
-    border: 1px solid var(--red);
-    color: var(--red);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 12px;
-    animation: stepGlow 3s ease-in-out infinite;
-  }
-  .cta-step:nth-child(2) .step-num { animation-delay: 1s; }
-  .cta-step:nth-child(3) .step-num { animation-delay: 2s; }
-  @keyframes stepGlow {
-    0%,100%{ box-shadow: 0 0 4px var(--red-glow); }
-    50%    { box-shadow: 0 0 16px rgba(229,34,34,0.4); }
-  }
-  .step-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
-  .btn-group { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
-  .cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 36px;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-decoration: none;
-    transition: all 0.2s;
-    cursor: pointer;
-    border: none;
-    font-family: 'Noto Sans JP', sans-serif;
-    position: relative;
-    overflow: hidden;
-  }
-  .cta-btn::after {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-    transition: none;
-  }
-  .cta-btn:hover::after { left: 200%; transition: left 0.5s ease; }
-  .cta-btn-primary {
-    background: var(--red);
-    color: #fff;
-    animation: btnPulse 2.5s ease-in-out infinite;
-  }
-  @keyframes btnPulse {
-    0%,100%{ box-shadow: 0 0 12px var(--red-glow); }
-    50%    { box-shadow: 0 0 28px rgba(229,34,34,0.5); }
-  }
-  .cta-btn-primary:hover { background: var(--red2); transform: translateY(-2px); }
-  .cta-btn-secondary { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.25); }
-  .cta-btn-secondary:hover { border-color: var(--red); color: var(--red); transform: translateY(-2px); }
-  .cta-note { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.1em; margin-top: 12px; }
+.cta-note{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--mu);letter-spacing:.1em;margin-top:10px;}
 
-  footer {
-    background: #000;
-    color: var(--muted);
-    text-align: center;
-    padding: 28px 24px;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.05em;
-    border-top: 1px solid var(--border-dim);
-  }
+footer{
+  background:#000;color:var(--mu);
+  text-align:center;padding:28px 24px;
+  font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.05em;
+  border-top:1px solid var(--bdrdim);
+}
 
-  /* Reveal on scroll */
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
 
-  /* Hero entry */
-  @keyframes fadeUp { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
-  .hero-inner > * { animation: fadeUp 0.8s ease both; }
-  .hero-inner > *:nth-child(1) { animation-delay: 0.1s; }
-  .hero-inner > *:nth-child(2) { animation-delay: 0.3s; }
-  .hero-inner > *:nth-child(3) { animation-delay: 0.5s; }
-  .hero-inner > *:nth-child(4) { animation-delay: 0.7s; }
-  .hero-inner > *:nth-child(5) { animation-delay: 0.9s; }
+/* ── HERO ENTRY ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.hero-inner>*{animation:fadeUp .8s ease both;}
+.hero-inner>*:nth-child(1){animation-delay:.1s;}
+.hero-inner>*:nth-child(2){animation-delay:.3s;}
+.hero-inner>*:nth-child(3){animation-delay:.5s;}
+.hero-inner>*:nth-child(4){animation-delay:.7s;}
+.hero-inner>*:nth-child(5){animation-delay:.9s;}
 </style>
 </head>
 <body>
 
-<!-- TOP TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker-content">
-    <span class="ticker-item">専攻科廃止 — 全国初の前例　大阪公立大学高専</span>
-    <span class="ticker-item">高専教育の危機　あなたの声を聞かせてください</span>
-    <span class="ticker-item">ADVANCED COURSE ABOLISHED — UNPRECEDENTED IN JAPAN</span>
-    <span class="ticker-item">専攻科廃止 — 全国初の前例　大阪公立大学高専</span>
-    <span class="ticker-item">高専教育の危機　あなたの声を聞かせてください</span>
-    <span class="ticker-item">ADVANCED COURSE ABOLISHED — UNPRECEDENTED IN JAPAN</span>
+<!-- ══ TICKER ══ -->
+<div class="ticker">
+  <div class="ticker-label">⚠ ALERT</div>
+  <div class="ticker-track">
+    <span class="ticker-item">全国57高専のうち専攻科廃止は大阪公立大学高専のみ<span>◆</span>代替設計の具体的保証なし<span>◆</span>高専本科の存在意義が構造的に薄れる危機<span>◆</span>2027年中百舌鳥キャンパス移転予定<span>◆</span>160人中120人が女子・推薦枠で一般枠競争激化<span>◆</span>私立高校無償化で高校→大阪公立大ルート拡大中<span>◆</span></span>
+    <span class="ticker-item">全国57高専のうち専攻科廃止は大阪公立大学高専のみ<span>◆</span>代替設計の具体的保証なし<span>◆</span>高専本科の存在意義が構造的に薄れる危機<span>◆</span>2027年中百舌鳥キャンパス移転予定<span>◆</span>160人中120人が女子・推薦枠で一般枠競争激化<span>◆</span>私立高校無償化で高校→大阪公立大ルート拡大中<span>◆</span></span>
   </div>
 </div>
 
-<!-- HERO -->
+<!-- ══ HERO ══ -->
 <div class="hero">
+  <div class="hero-grid"></div>
   <div class="hero-glow"></div>
   <div class="hero-inner">
-    <div class="hero-tag">
-      <span class="dot"></span>
-      緊急問いかけ &nbsp;/&nbsp; URGENT ALERT
-    </div>
+    <div class="hero-tag">高専教育への緊急問いかけ / URGENT ALERT</div>
     <h1>
-      <span class="line-normal">専攻科が、</span>
-      <span class="line-alert">消えた。</span>
-      <span class="line-normal" style="font-size:0.6em; display:block; margin-top:10px; letter-spacing:0.02em;">全国57校のうち、1校だけで。</span>
+      <span class="ln">専攻科が、</span>
+      <span class="la">消えた。</span>
+      <span class="ln" style="font-size:.62em;display:block;margin-top:10px;">全国57校のうち、<strong style="color:var(--red);">1校だけ</strong>で。</span>
     </h1>
     <p class="hero-sub">
       大阪公立大学高専で、<strong>専攻科が廃止されました。</strong><br>
-      これは大阪だけの問題ではない——<br>
+      しかしこれは専攻科だけの問題ではない——<br>
+      <strong>高専本科そのものの存在意義</strong>が、構造的に薄まっていく。<br>
       全国の高専関係者の皆さんに、問いかけます。
     </p>
     <p class="hero-byline">発起人：大阪公立大学工業高等専門学校 現役生</p>
-    <div class="hero-scroll">▼ &nbsp;SCROLL TO READ</div>
+    <div class="hero-scroll">▼ SCROLL TO READ</div>
   </div>
 </div>
 
-<!-- DARK TICKER -->
-<div class="ticker-wrap-dark">
-  <div class="ticker-content-dark">
-    <span class="ticker-item-dark">2024.04 — 専攻科 募集停止</span>
-    <span class="ticker-item-dark">新専攻科の設置予定 <span>なし</span></span>
-    <span class="ticker-item-dark">代替設計の明示 <span>なし</span></span>
-    <span class="ticker-item-dark">ADVANCED COURSE — <span>ABOLISHED</span></span>
-    <span class="ticker-item-dark">高専教育7年モデルの終焉か</span>
-    <span class="ticker-item-dark">2024.04 — 専攻科 募集停止</span>
-    <span class="ticker-item-dark">新専攻科の設置予定 <span>なし</span></span>
-    <span class="ticker-item-dark">代替設計の明示 <span>なし</span></span>
-    <span class="ticker-item-dark">ADVANCED COURSE — <span>ABOLISHED</span></span>
-    <span class="ticker-item-dark">高専教育7年モデルの終焉か</span>
-  </div>
-</div>
-
-<!-- MAIN CONTENT -->
+<!-- ══ MAIN ══ -->
 <div class="container">
 
+<!-- ─ Section 1: 事実 ─ -->
 <section>
-  <div class="section-label reveal">What happened</div>
+  <div class="sec-label reveal">// Section 01 — What happened</div>
   <h2 class="reveal">2024年度、大阪公立大学高専の<br>専攻科が<em>事実上廃止</em>されました。</h2>
-  <p class="reveal">2021年1月に示された高専改革方針により、2024年4月入学生を最後に専攻科の学生募集が停止されました。新専攻科の設置予定もありません。</p>
-  <p class="reveal">理由として挙げられたのは、大阪公立大学との「教育内容の重複」と、大学編入枠の拡大による代替です。</p>
+
+  <div class="alert-banner reveal">
+    <span class="alert-icon">⚠</span>
+    <span>全国57高専中、専攻科を廃止したのはこの1校のみ。高専教育の歴史において前例のない事態です。</span>
+  </div>
+
+  <p class="reveal">2021年1月に示された高専改革方針により、2024年4月入学生を最後に専攻科の学生募集が停止されました。新専攻科の設置予定はありません。</p>
+  <p class="reveal">廃止の理由として挙げられたのは、大阪公立大学との「教育内容の重複」と、大学編入枠の拡大による代替です。しかし——この「代替」に、具体的な保証はあるのでしょうか？</p>
+
+  <div class="source-block reveal">
+    <div class="src-title">参照資料①：高専改革の背景</div>
+    <p>大阪公立大学高専の改革方針が示されている大阪府の公式ページ。専攻科廃止の経緯と、高専と大阪公立大学の統合的位置づけが確認できます。この特殊な法人一体構造が、今回の廃止を可能にした制度的背景です。</p>
+    <a class="src-btn" href="https://www.pref.osaka.lg.jp/o010010/fukatsu/koritsudai_osaka/kousenkaikaku.html" target="_blank" rel="noopener">大阪府：大阪公立大学高専改革について →</a>
+  </div>
+
   <div class="fact-box reveal">
-    <div class="fact-box-label">⚠ ALERT</div>
     <div class="fact-num">57</div>
-    <div class="fact-label">全国の国公私立高専数（2025年現在）</div>
-    <p class="fact-desc">そのうち、<strong>専攻科を廃止した高専は極めて稀</strong>です。<br>これは全国の高専教育の歴史において前例のない出来事です。</p>
+    <div class="fact-sub">全国の国公私立高専数（2025年現在）</div>
+    <p class="fact-desc"><strong>専攻科を廃止した高専は、この1校のみ。</strong><br>高校でも大学でもない、高専という特殊な教育機関。その中でさらに極めて異例のこの事態は、全国に「前例」を刻みます。</p>
   </div>
 </section>
 
+<!-- ─ Section 2: 代替の欺瞞 ─ -->
 <section>
-  <div class="section-label reveal">The question</div>
-  <h2 class="reveal">「大学編入で代替できる」<br>——<em>本当に</em>そうだろうか。</h2>
-  <p class="reveal">改革方針では「専門性を高めたい学生は大学編入で対応する」とされています。しかし、専攻科と大学編入は本当に同じ教育機能を持つのでしょうか。</p>
+  <div class="sec-label reveal">// Section 02 — The false substitute</div>
+  <h2 class="reveal">「大学編入で代替できる」——<br><em>保証はどこにも書かれていない。</em></h2>
+
+  <p class="reveal">法人側は「専門性を高めたい学生は大学編入で対応する」としています。しかし、大阪公立大学工学部の編入学募集要項を確認しても、大阪公立大学高専生への<strong style="color:var(--wh);">内部進学の優遇・保証</strong>は明記されていません。</p>
+
+  <div class="source-block reveal">
+    <div class="src-title">参照資料②：大学編入に内部進学の保証はあるか</div>
+    <p>大阪公立大学工学部の編入学試験情報ページ。外部の高専生・大学生と同じ試験で競合する構造になっており、大阪公立大学高専生への特別枠や内部進学の保証は確認できません。「代替できる」という主張の根拠を、自分の目で確かめてください。</p>
+    <a class="src-btn" href="https://www.omu.ac.jp/admissions/ug/exam_info/transfer/" target="_blank" rel="noopener">大阪公立大学：編入学試験情報を確認する →</a>
+  </div>
+
   <div class="compare reveal">
-    <div class="compare-card has">
-      <div class="c-label">専攻科（廃止前）</div>
+    <div class="ccard has">
+      <div class="c-lbl">専攻科（廃止前）</div>
       <ul>
         <li>本科5年の積み上げを前提とした一貫指導</li>
         <li>同じ教員のもとで研究を継続</li>
         <li>少人数・PBL型の実践的研究</li>
         <li>高専教育の「完成形」としての位置づけ</li>
-        <li>内部競争のみで進学可能</li>
+        <li>内部競争のみで進学可能（外部と競合しない）</li>
+        <li>修了で「学士」相当の称号取得</li>
       </ul>
     </div>
-    <div class="compare-card none">
-      <div class="c-label">大学編入（代替案）</div>
+    <div class="ccard none">
+      <div class="c-lbl">大学編入（代替案）</div>
       <ul>
         <li>大学の教育設計・文化に合わせる必要がある</li>
         <li>研究テーマ・指導教員が変わる</li>
         <li>外部高専生・大学生との競争枠</li>
         <li>高専教育との連続性が保証されない</li>
         <li>情報収集・受験対策が新たに必要</li>
+        <li>内部優遇の明記なし（要項上は平等競争）</li>
       </ul>
     </div>
   </div>
-  <div class="pullquote reveal">
-    <p>代替設計の具体性が、公式資料のどこにも明示されていません。</p>
+
+  <div class="pq reveal">
+    <p>「代替できる」と言うなら、内部進学の保証を明示すべきだ。それがない限り、廃止の正当性は成立しない。</p>
   </div>
-  <p class="reveal">編入枠の規模、少人数教育の継承、研究テーマの継続性——これらについて、法人からの具体的な説明は確認できていません。「なくすこと」だけが示され、「何をどう保障するか」が示されていない。</p>
 </section>
 
+<!-- ─ Section 3: 称号問題 ─ -->
 <section>
-  <div class="section-label reveal">Why this matters to you</div>
-  <h2 class="reveal">これは大阪だけの問題ではない。<br><em>高専教育そのもの</em>への問いです。</h2>
-  <div class="question-grid reveal">
-    <div class="q-card">
-      <div class="q-num">QUESTION 01</div>
-      <p>専攻科は「効率的でないから」廃止してよいのか？教育は効率性だけで設計されるべきものなのか？</p>
-    </div>
-    <div class="q-card">
-      <div class="q-num">QUESTION 02</div>
-      <p>高専教育の強みである「5年一貫＋専攻科2年」という7年モデルを、大学統合で本当に代替できるのか？</p>
-    </div>
-    <div class="q-card">
-      <div class="q-num">QUESTION 03</div>
-      <p>今後、他の高専でも同様の「効率化」を理由とした専攻科廃止が連鎖的に起きる可能性はないか？</p>
-    </div>
+  <div class="sec-label reveal">// Section 03 — The credential problem</div>
+  <h2 class="reveal">本科の称号すら未完全なのに、<br>「大学学士で成り立つ」と<em>廃止する矛盾</em>。</h2>
+
+  <p class="reveal">高専本科を修了しても、授与されるのは「準学士」相当の称号です。大学の「学士」とは法的・社会的に異なります。その状態のまま「大学に編入すれば学士が取れるから専攻科は不要」と廃止するのは——</p>
+
+  <div class="alert-banner reveal">
+    <span class="alert-icon">⚠</span>
+    <span>「高専教育は非効率であり、大学学士授与機関として正式な大学のほうが優れている」と、法人自身が宣言しているに等しい。</span>
   </div>
-  <div class="warning-bar reveal">
-    <span class="warn-icon">⚠</span>
-    <span>この事例が「前例」となることで、全国の高専教育のあり方に影響を及ぼす可能性があります。</span>
-  </div>
-  <p class="reveal">大阪公立大学高専は、公立大学法人大阪という特殊な立場にあります。しかし今後、類似した統廃合の動きが他校でも起きないという保証はありません。</p>
+
+  <p class="reveal">では、なぜ高専が存在するのか。高専は「高校でも大学でもない」独自の教育機関として、実践的技術者教育を担ってきました。その価値を自ら否定する形で専攻科を廃止することは、高専教育の根幹への問いかけです。</p>
 </section>
 
-<!-- S5: 偶然か意図的か -->
+<!-- ─ Section 4: 本科の危機 ─ -->
 <section>
-  <div class="section-label reveal">Structural threat</div>
-  <h2 class="reveal">これは<em>偶然の連鎖</em>なのか。<br>本科の存在意義まで、問われ始めている。</h2>
-  <p class="reveal">専攻科廃止を「単独の判断」として見れば、違和感は薄れる。しかし時系列で並べると、一本の線が見えてくる。</p>
+  <div class="sec-label reveal">// Section 04 — The bigger threat</div>
+  <h2 class="reveal">専攻科だけではない。<br><em>本科の存在意義</em>が、構造的に薄まっている。</h2>
 
-  <div class="fact-box reveal" style="margin:40px 0;">
-    <div class="fact-label" style="margin-bottom:24px;">// TIMELINE — 「附属機関化」への道筋</div>
-    <div style="position:relative;">
-      <div style="position:absolute; left:56px; top:0; bottom:0; width:1px; background:rgba(229,34,34,0.2);"></div>
+  <p class="reveal">私はこれが「偶然の積み重ね」とは思えません。以下の要素を並べると、一つの方向性が見えてきます。</p>
 
-      <div style="display:flex; gap:20px; padding:14px 0; border-bottom:1px solid rgba(255,255,255,0.05);">
-        <div style="font-family:'Share Tech Mono',monospace; font-size:11px; color:var(--red); width:48px; flex-shrink:0; padding-top:3px; text-align:right;">2019</div>
-        <div style="font-size:13px; color:var(--muted2); line-height:1.75; padding-left:16px;">公立大学法人大阪が発足。府大・市大・高専が<strong style="color:var(--white);">同一法人に統合</strong>される。高専の独立性が組織的に失われ始める。</div>
+  <div class="struct-box reveal">
+    <div class="s-title">危機の構造：段階的に積み上がる圧力</div>
+    <div class="flow">
+      <div class="flow-item">
+        <div class="flow-num">01</div>
+        <div class="flow-text"><strong>大阪府の私立高校無償化</strong>——高校から直接、大阪公立大学を目指すルートが拡大。高専を経由しなくても大学進学できる環境が整備されている。</div>
       </div>
-      <div style="display:flex; gap:20px; padding:14px 0; border-bottom:1px solid rgba(255,255,255,0.05);">
-        <div style="font-family:'Share Tech Mono',monospace; font-size:11px; color:var(--red); width:48px; flex-shrink:0; padding-top:3px; text-align:right;">2021</div>
-        <div style="font-size:13px; color:var(--muted2); line-height:1.75; padding-left:16px;">高専改革案発表。<strong style="color:var(--white);">専攻科廃止・コース再編・学生募集拡大</strong>が決定。廃止のコスト根拠・費用対効果の試算は公示資料に一切存在しない。</div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-item">
+        <div class="flow-num">02</div>
+        <div class="flow-text"><strong>募集定員160人中120人が女子枠・推薦枠</strong>——一般枠はわずか40人。外部との競争激化が進み、高専本科への入学難易度が上昇。「高専に入る意味」が問われる構造になっている。</div>
       </div>
-      <div style="display:flex; gap:20px; padding:14px 0; border-bottom:1px solid rgba(255,255,255,0.05);">
-        <div style="font-family:'Share Tech Mono',monospace; font-size:11px; color:var(--red); width:48px; flex-shrink:0; padding-top:3px; text-align:right;">2022</div>
-        <div style="font-size:13px; color:var(--muted2); line-height:1.75; padding-left:16px;">大阪公立大学開学・高専名称変更。<strong style="color:var(--white);">160名の募集枠のうち120名が女子枠・推薦枠</strong>に。一般選抜枠が急速に圧縮される。</div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-item">
+        <div class="flow-num">03</div>
+        <div class="flow-text"><strong>2027年、中百舌鳥キャンパスへ移転</strong>——移転先のキャンパスは大阪公立大学のもの。高専の独自性・物理的独立性が失われ、大学の付属機関化が進む恐れがある。</div>
       </div>
-      <div style="display:flex; gap:20px; padding:14px 0; border-bottom:1px solid rgba(255,255,255,0.05);">
-        <div style="font-family:'Share Tech Mono',monospace; font-size:11px; color:var(--red); width:48px; flex-shrink:0; padding-top:3px; text-align:right;">2024</div>
-        <div style="font-size:13px; color:var(--muted2); line-height:1.75; padding-left:16px;">専攻科<strong style="color:var(--white);">最終入学。</strong>高専から学士取得の内部ルートが消滅。同年、私立高校無償化拡大により「高校→大阪公立大学」ルートが強化され、競合する進路設計が出現。</div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-item">
+        <div class="flow-num">04</div>
+        <div class="flow-text"><strong>専攻科廃止（2024年〜）</strong>——「大学で代替できる」という論理で、高専独自の上位教育を消去。高専本科を「大学進学のための予備過程」に位置づける方向性が見える。</div>
       </div>
-      <div style="display:flex; gap:20px; padding:14px 0;">
-        <div style="font-family:'Share Tech Mono',monospace; font-size:11px; color:var(--red); width:48px; flex-shrink:0; padding-top:3px; text-align:right;">2027</div>
-        <div style="font-size:13px; color:var(--muted2); line-height:1.75; padding-left:16px;"><strong style="color:var(--white);">中百舌鳥キャンパスへ移転予定。</strong>大阪公立大学の敷地内に入ることで、独立キャンパスを持たない「附属機関」化が物理的に完成する。</div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-item">
+        <div class="flow-num">05</div>
+        <div class="flow-text"><strong>仮に本科が廃止されても——</strong>キャンパスは大阪公立大学のもの、教員・設備は大学と共有、学生は大学に編入できる。<strong>廃止しても困る主体が存在しない構造</strong>が既に出来上がっている。</div>
       </div>
     </div>
   </div>
 
-  <div class="question-grid reveal">
-    <div class="q-card">
-      <div class="q-num">STRUCTURAL QUESTION 01</div>
-      <p>専攻科廃止は「高専を大学の予備教育機関として再定義する」プロセスの、第一歩ではないのか。</p>
+  <div class="pq reveal">
+    <p>これは偶然の積み重ねか、それとも設計された構造変化か——全国の高専関係者に問いたい。</p>
+  </div>
+
+  <p class="reveal">高専は高校ではありません。全国57校が持つ独自の教育文化と実績は、日本の技術教育の根幹です。大阪公立大学高専での動きが「前例」となれば、他校への波及は避けられません。高専という教育機関でこのようなことが起きると、その特殊な成り立ちゆえに全国で目立ちます。だからこそ、今、改めて問い直さなければならない。</p>
+</section>
+
+<!-- ─ Section 5: 問いかけ ─ -->
+<section>
+  <div class="sec-label reveal">// Section 05 — Three questions</div>
+  <h2 class="reveal">全国の高専関係者へ、<em>3つの問い</em>。</h2>
+
+  <div class="q-grid reveal">
+    <div class="qcard">
+      <div class="qnum">QUESTION 01</div>
+      <p>「大学学士で代替できるから専攻科は不要」——この論理が認められるなら、高専本科の独自価値も同様に否定されないか？</p>
     </div>
-    <div class="q-card">
-      <div class="q-num">STRUCTURAL QUESTION 02</div>
-      <p>高専5年卒の「準学士」は本来20歳で学士相当であるべきだ——という声がある。学士ルートが消え、大学敷地に移転したとき、<em>「なぜ高専があるのか」</em>という問いが避けられなくなる。</p>
+    <div class="qcard">
+      <div class="qnum">QUESTION 02</div>
+      <p>キャンパス移転・定員構造の変化・専攻科廃止という三重の変化は、高専の段階的な大学組み込みへの布石ではないか？</p>
     </div>
-    <div class="q-card">
-      <div class="q-num">STRUCTURAL QUESTION 03</div>
-      <p>大阪府は私立高校無償化で「高校→大学」という別ルートを拡大している。高専という独自ルートを維持する<em>政策的意思</em>が、設置者に本当に存在するのか。</p>
+    <div class="qcard">
+      <div class="qnum">QUESTION 03</div>
+      <p>大阪公立大学高専の事例が「前例」となることで、全国の他の高専でも同様の「効率化」「統合」が正当化されるリスクはないか？</p>
     </div>
   </div>
 
-  <div class="pullquote reveal" style="margin-top:40px;">
-    <p>専攻科廃止は<em style="color:var(--red);">終点</em>ではなく、起点かもしれない。<br>本科生・在校生・卒業生・保護者、すべてに関わる問題が、静かに進行している。</p>
+  <div class="alert-banner reveal">
+    <span class="alert-icon">⚠</span>
+    <span>これは大阪だけの問題ではありません。高専という教育機関の将来に関わる、全国共通の問いです。</span>
   </div>
 </section>
 
 </div><!-- /container -->
 
-<!-- MIDDLE ALERT TICKER -->
-<div class="alert-banner">
-  <div class="alert-scroll">
-    <span class="alert-item">あなたの声が高専教育の未来を変える</span>
-    <span class="alert-item">YOUR VOICE MATTERS — 意見フォームに回答してください</span>
-    <span class="alert-item">賛否どちらの意見も歓迎します</span>
-    <span class="alert-item">高専専攻科廃止 — 前例なき決断への問いかけ</span>
-    <span class="alert-item">あなたの声が高専教育の未来を変える</span>
-    <span class="alert-item">YOUR VOICE MATTERS — 意見フォームに回答してください</span>
-    <span class="alert-item">賛否どちらの意見も歓迎します</span>
-    <span class="alert-item">高専専攻科廃止 — 前例なき決断への問いかけ</span>
-  </div>
-</div>
-
-<!-- CTA -->
-<div class="cta-section">
+<!-- ══ CTA ══ -->
+<div class="cta-sec">
   <div class="container">
     <div class="cta-inner">
       <h2>あなたの声を、<em>聞かせてください。</em></h2>
-      <p class="cta-desc">賛否どちらのご意見も歓迎します。この議論そのものが、高専教育の未来を守る力になります。</p>
+      <p class="cta-desc">賛否どちらのご意見も歓迎します。この問題への関心と議論が、高専教育の未来を守る力になります。</p>
+
       <div class="cta-steps">
         <div class="cta-step">
           <div class="step-num">01</div>
@@ -799,14 +646,13 @@
           <div class="step-text">賛同できる場合は<br>声明として表明</div>
         </div>
       </div>
+
       <div class="btn-group">
-        <a class="cta-btn cta-btn-primary"
-           href="https://forms.office.com/Pages/ResponsePage.aspx?id=6Zxr3Lqm0069Z5-eOshc8fHzbzhJP7hBmtm-rvhNTopUNFEwOUhJVjRINEtESFgzWE00MFNVVzRPSC4u"
-           target="_blank" rel="noopener">
-          ▶ &nbsp;意見フォームで回答する
+        <a class="cta-btn btn-pri" href="https://forms.office.com/Pages/ResponsePage.aspx?id=6Zxr3Lqm0069Z5-eOshc8fHzbzhJP7hBmtm-rvhNTopUNFEwOUhJVjRINEtESFgzWE00MFNVVzRPSC4u" target="_blank" rel="noopener">
+          ▶ 意見フォームで回答する
         </a>
-        <a class="cta-btn cta-btn-secondary" href="/cdn-cgi/l/email-protection#f68487c4c3c6c7c494b68582d8999b83d89795d89c86">
-          ✉ &nbsp;メールで送る
+        <a class="cta-btn btn-sec" href="mailto:rq25012b@st.omu.ac.jp">
+          ✉ メールで送る
         </a>
       </div>
       <p class="cta-note">// いただいたご意見は、今後の活動の資料として活用させていただきます。</p>
@@ -815,21 +661,17 @@
 </div>
 
 <footer>
-  お問い合わせ / <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cebcbffcfbfefffcac8ebdbae0a1a3bbe0afade0a4be">[email&#160;protected]</a> / 本資料の転載・共有は歓迎します。
+ rq25012b@st.omu.ac.jp / 本資料の転載・共有は歓迎します。
 </footer>
 
-
 <script>
-  const reveals = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
-    });
-  },{threshold:0.08});
-  reveals.forEach(el => obs.observe(el));
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+  });
+},{threshold:.1});
+reveals.forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>
-
-
-
